@@ -141,9 +141,8 @@ signinForm.addEventListener('submit', async e => {
 });
 
 // ---------- Hero image fallback ----------
-// If images/dog-hero.png doesn't exist yet, show a placeholder emoji.
+// If the dog image can't load, just hide it instead of showing a broken icon.
 const heroImg = document.getElementById('heroImg');
-heroImg.addEventListener('error', () => {
-    heroImg.classList.add('hidden');
-    document.getElementById('heroFallback').classList.remove('hidden');
-});
+if (heroImg) {
+    heroImg.addEventListener('error', () => { heroImg.style.display = 'none'; });
+}

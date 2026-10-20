@@ -15,8 +15,6 @@
             --page: #e6f2c4;
             --orange: #ff7a00;
             --danger: #c0392b;
-            /* Put your dog images here later */
-            --bg-image: url('images/dog-faded.png');
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -38,15 +36,13 @@
             min-height: 540px;
             overflow: hidden;
             border-radius: 20px;
-            background:
-                var(--bg-image) left 30px center / 340px no-repeat,
-                linear-gradient(135deg, #a9d159 0%, #7fb236 100%);
             box-shadow: 0 8px 0 rgba(47, 74, 18, 0.25);
         }
 
-        /* Tabs */
+        /* ---------- Tabs, logo, form (all sit ON TOP of the hero) ---------- */
         .tabs {
             position: absolute;
+            z-index: 5;
             top: 0;
             left: 50%;
             transform: translateX(-50%);
@@ -69,9 +65,9 @@
 
         .tab.active { opacity: 1; }
 
-        /* Logo */
         .logo {
             position: absolute;
+            z-index: 5;
             top: 28px;
             left: 36px;
             display: flex;
@@ -83,17 +79,17 @@
 
         .logo svg { width: 44px; height: 44px; fill: var(--leaf-dark); }
 
-        /* Form area */
         .form-area {
             position: relative;
-            z-index: 2;
-            width: 55%;
+            z-index: 5;
+            width: 50%;
             padding: 120px 36px 40px 76px;
         }
 
         .kicker { font-weight: 600; font-size: 0.9rem; letter-spacing: 1px; }
 
-        h1 {
+        /* Scoped so it doesn't hit the hero heading */
+        .form-area h1 {
             display: inline-block;
             margin: 6px 0 12px;
             font-size: 2rem;
@@ -177,37 +173,277 @@
 
         .hidden { display: none; }
 
-        /* Hero image on the right (replace with your dog image) */
+        /* ---------- YOUR HERO DESIGN: now a full background layer ---------- */
         .hero {
             position: absolute;
-            right: 20px;
-            bottom: 0;
-            width: 38%;
-            height: 92%;
+            inset: 0;
+            z-index: 0;
+            overflow: hidden;
+            isolation: isolate;
+            border-radius: inherit;
+            background:
+                radial-gradient(ellipse at 78% 45%, rgba(255, 112, 0, 0.22), transparent 38%),
+                radial-gradient(ellipse at 15% 20%, rgba(205, 255, 90, 0.25), transparent 40%),
+                linear-gradient(125deg, #d9f59b 0%, #a7ca66 45%, #405a38 100%);
+            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.3);
+        }
+
+        .hero-bg-glow {
+            position: absolute;
+            z-index: -1;
+            width: 430px;
+            height: 430px;
+            right: 8%;
+            top: 10%;
+            background: #ff6800;
+            opacity: 0.17;
+            filter: blur(100px);
+            border-radius: 50%;
+            animation: glowPulse 4s ease-in-out infinite alternate;
+        }
+
+        .hero-grid {
+            position: absolute;
+            inset: 0;
+            z-index: -1;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+            background-size: 42px 42px;
+            mask-image: linear-gradient(90deg, transparent, black 60%, black);
+        }
+
+        /* Hero text: moved to the right side so it doesn't sit under the form */
+        .hero-content {
+            position: absolute;
+            z-index: 1;
+            top: 50px;
+            right: 0;
+            width: 42%;
+            padding-right: 50px;
+            text-align: right;
+            color: #243b17;
+        }
+
+        .hero-tag {
+            display: inline-block;
+            padding: 9px 15px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(44, 68, 24, 0.2);
+            border-radius: 30px;
+            background: rgba(255, 255, 255, 0.25);
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 2px;
+        }
+
+        .hero-content h1 {
+            margin: 0;
+            font-size: clamp(30px, 3.6vw, 52px);
+            font-weight: 700;
+            line-height: 0.98;
+            letter-spacing: -1px;
+        }
+
+        .hero-content h1 span {
+            color: #ff6500;
+            text-shadow: 0 4px 20px rgba(255, 95, 0, 0.15);
+        }
+
+        .hero-content p {
+            margin-top: 18px;
+            color: #405532;
+            font-size: 15px;
+            letter-spacing: 0.5px;
+        }
+
+        .hero-stats {
             display: flex;
-            align-items: flex-end;
-            justify-content: center;
+            justify-content: flex-end;
+            gap: 35px;
+            margin-top: 20px;
         }
 
-        .hero img { max-width: 100%; max-height: 100%; object-fit: contain; }
+        .hero-stats div { display: flex; flex-direction: column; gap: 6px; }
+        .hero-stats strong { font-size: 27px; color: #2c421e; }
+        .hero-stats span { font-size: 10px; font-weight: 800; letter-spacing: 2px; }
 
-        .hero .placeholder {
-            font-size: 9rem;
-            line-height: 1;
-            padding-bottom: 30px;
+        /* Dog image: in front of the hero text, behind the form */
+        #heroImg {
+            position: absolute;
+            z-index: 2;
+            width: 48%;
+            max-width: 650px;
+            height: auto;
+            right: 3%;
+            bottom: 0;
+            object-fit: contain;
+            object-position: bottom right;
+            filter:
+                drop-shadow(0 15px 18px rgba(20, 25, 10, 0.28))
+                drop-shadow(0 0 22px rgba(255, 105, 0, 0.2));
+            animation: dogFloat 4s ease-in-out infinite;
         }
 
-        @media (max-width: 760px) {
-            .card { background-image: linear-gradient(135deg, #a9d159 0%, #7fb236 100%); }
+        /* Same image, mirrored (faces left), faded, behind the form */
+        .hero-bg-dog {
+            position: absolute;
+            z-index: 0;
+            width: 62%;
+            height: auto;
+            left: 3%;
+            bottom: 0;
+            transform: scaleX(-1);
+            opacity: 0.14;
+            pointer-events: none;
+        }
+
+        .hero-watermark {
+            position: absolute;
+            z-index: 0;
+            right: 2%;
+            bottom: -40px;
+            color: rgba(255, 255, 255, 0.08);
+            font-size: clamp(90px, 15vw, 210px);
+            font-weight: 700;
+            letter-spacing: -8px;
+            pointer-events: none;
+        }
+
+        /* ---------- OUTSIDE THE BOX: rings, glow and embers on the page ---------- */
+        .card { z-index: 1; }
+
+        .outside {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .ring {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            border-radius: 50%;
+            border: 2px solid rgba(111, 163, 40, 0.35);
+            transform: translate(-50%, -50%) rotate(-28deg);
+        }
+
+        .ring-1 { width: min(1120px, 150vw); height: min(780px, 110vh); animation: ringSpin 60s linear infinite; }
+        .ring-2 { width: min(1340px, 175vw); height: min(940px, 130vh); border-color: rgba(255, 122, 0, 0.35); animation: ringSpin 90s linear infinite reverse; }
+        .ring-3 { width: min(1560px, 200vw); height: min(1100px, 150vh); border-style: dashed; border-color: rgba(111, 163, 40, 0.28); animation: ringSpin 120s linear infinite; }
+
+        .outside-glow {
+            position: absolute;
+            width: 420px;
+            height: 420px;
+            border-radius: 50%;
+            background: #ff6800;
+            opacity: 0.18;
+            filter: blur(100px);
+        }
+
+        .glow-a { top: -120px; right: -100px; }
+        .glow-b { bottom: -140px; left: -120px; background: #9ed23a; opacity: 0.3; }
+
+        .ember {
+            position: absolute;
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #ff8a00;
+            box-shadow: 0 0 8px #ff6800, 0 0 20px #ff4d00;
+            animation: emberFloat 3s ease-in-out infinite alternate;
+        }
+
+        .e1 { top: 12%; left: 10%; }
+        .e2 { top: 30%; right: 8%; animation-delay: 1s; }
+        .e3 { bottom: 18%; left: 7%; animation-delay: 2s; }
+        .e4 { bottom: 10%; right: 12%; animation-delay: 0.5s; }
+        .e5 { top: 6%; right: 28%; animation-delay: 1.5s; }
+        .e6 { bottom: 5%; left: 30%; animation-delay: 2.5s; }
+
+        @keyframes ringSpin {
+            from { transform: translate(-50%, -50%) rotate(-28deg); }
+            to { transform: translate(-50%, -50%) rotate(332deg); }
+        }
+
+        @keyframes dogFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-9px); }
+        }
+
+        @keyframes glowPulse {
+            from { opacity: 0.12; transform: scale(0.9); }
+            to { opacity: 0.24; transform: scale(1.1); }
+        }
+
+        @keyframes emberFloat {
+            from { transform: translateY(10px); opacity: 0.4; }
+            to { transform: translateY(-25px); opacity: 1; }
+        }
+
+        /* ---------- Mobile ---------- */
+        @media (max-width: 768px) {
             .form-area { width: 100%; padding: 110px 24px 32px; }
-            .hero { display: none; }
             .logo { left: 20px; }
             .row { flex-direction: column; gap: 0; }
+            .hero-content, .hero-watermark, .hero-bg-dog { display: none; }
+            #heroImg { width: 90%; right: -10%; opacity: 0.3; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            #heroImg, .hero-bg-glow, .ember, .ring { animation: none; }
         }
     </style>
 </head>
 <body>
+    <!-- Outside the box: rings, glow, embers -->
+    <div class="outside" aria-hidden="true">
+        <div class="outside-glow glow-a"></div>
+        <div class="outside-glow glow-b"></div>
+        <div class="ring ring-1"></div>
+        <div class="ring ring-2"></div>
+        <div class="ring ring-3"></div>
+        <span class="ember e1"></span>
+        <span class="ember e2"></span>
+        <span class="ember e3"></span>
+        <span class="ember e4"></span>
+        <span class="ember e5"></span>
+        <span class="ember e6"></span>
+    </div>
+
     <main class="card">
+
+        <!-- Hero: background layer (behind everything) -->
+        <div class="hero" aria-hidden="true">
+            <div class="hero-bg-glow"></div>
+            <div class="hero-grid"></div>
+            <img class="hero-bg-dog" src="assests/Infernal Ember Wolf.png" alt="">
+
+            <div class="hero-content">
+                <span class="hero-tag">🔥 UNLEASH THE FIRE</span>
+                <h1>ENTER THE<br><span>FIRE WORLD</span></h1>
+                <p>Every legend begins with a spark.</p>
+
+                <div class="hero-stats">
+                    <div>
+                        <strong>01</strong>
+                        <span>BEGIN</span>
+                    </div>
+                    <div>
+                        <strong>∞</strong>
+                        <span>ADVENTURE</span>
+                    </div>
+                </div>
+            </div>
+
+            <img id="heroImg" src="assests/Infernal Ember Wolf.png" alt="">
+
+            <span class="hero-watermark">EMBER</span>
+        </div>
+
         <div class="logo">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 6h10a5 5 0 0 1 5 5v2a4 4 0 0 1-7 2.6L14 14h-4l-1 1.6A4 4 0 0 1 2 13v-2a5 5 0 0 1 5-5zm1 3H7v1H6v1h1v1h1v-1h1v-1H8V9zm8.5 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm2 2a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/></svg>
             <span>Super Dog<br>Escape</span>
@@ -259,12 +495,6 @@
                 <button class="btn" type="submit">LOGIN</button>
             </form>
         </section>
-
-        <!-- Replace the src with your dog image, e.g. images/dog-hero.png -->
-        <div class="hero">
-            <img id="heroImg" src="images/dog-hero.png" alt="Super dog">
-            <span class="placeholder hidden" id="heroFallback" aria-hidden="true">🐕</span>
-        </div>
     </main>
 
     <script type="module" src="login.js"></script>

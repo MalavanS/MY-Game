@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Earn a life</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="auth.css">
+    <style>
+        .panel { max-width: 560px; }
+        .puzzle {
+            display: block;
+            width: 100%;
+            min-height: 120px;
+            margin-bottom: 16px;
+            background: #fff;
+            border: 3px solid var(--fern);
+            border-radius: 10px;
+        }
+        .progress { margin-bottom: 14px; font-weight: 600; color: var(--moon); }
+        .ok { color: #9be58f; }
+    </style>
+</head>
+<body>
+    <main class="panel">
+        <h1>Earn a life</h1>
+        <p class="sub">Find the value of the banana in the puzzle and type it in. Solve 1 puzzle to earn a life. Wrong answers cost nothing, and you can skip any puzzle.</p>
+
+        <p class="progress" id="progress">Solved 0 / 3</p>
+        <img class="puzzle" id="puzzleImg" alt="Banana math puzzle">
+
+        <label for="answer">Your answer</label>
+        <input id="answer" type="number" inputmode="numeric" autocomplete="off">
+
+        <p class="error" id="msg" role="alert"></p>
+        <button id="submitBtn">Check answer</button>
+        <button class="ghost" id="skipBtn">Skip, give me another puzzle</button>
+        <button class="ghost" id="backBtn">Back to start page</button>
+    </main>
+
+    <script type="module" src="banana.js"></script>
+</body>
+</html>

@@ -12,14 +12,16 @@ if (session) {
         : 'None';
     livesEl.setAttribute('aria-label', session.lives + ' lives left');
 
-    document.getElementById('playBtn').addEventListener('click', () => {
-        if (session.lives <= 0) {
-            // Later: send the player to the Banana API math game here
-            document.getElementById('msg').textContent =
-                'No lives left. Win the math game to earn one.';
-            return;
-        }
-        window.location.href = 'index.html';
+    const playBtn = document.getElementById('playBtn');
+
+    if (session.lives <= 0) {
+        document.getElementById('msg').textContent =
+            'No lives left. Solve banana puzzles to earn one.';
+        playBtn.textContent = 'Earn a life';
+    }
+
+    playBtn.addEventListener('click', () => {
+        window.location.href = session.lives <= 0 ? 'banana.html' : 'index.html';
     });
 
     document.getElementById('logoutBtn').addEventListener('click', () => {
