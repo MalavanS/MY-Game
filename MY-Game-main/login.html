@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join the game</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --leaf-dark: #2f4a12;
+            --leaf: #6fa328;
+            --leaf-light: #b6d86a;
+            --page: #e6f2c4;
+            --orange: #ff7a00;
+            --danger: #c0392b;
+            /* Put your dog images here later */
+            --bg-image: url('images/dog-faded.png');
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            min-height: 100vh;
+            display: grid;
+            place-items: center;
+            padding: 24px;
+            font-family: 'Fredoka', system-ui, sans-serif;
+            color: var(--leaf-dark);
+            background: var(--page);
+        }
+
+        .card {
+            position: relative;
+            width: 100%;
+            max-width: 960px;
+            min-height: 540px;
+            overflow: hidden;
+            border-radius: 20px;
+            background:
+                var(--bg-image) left 30px center / 340px no-repeat,
+                linear-gradient(135deg, #a9d159 0%, #7fb236 100%);
+            box-shadow: 0 8px 0 rgba(47, 74, 18, 0.25);
+        }
+
+        /* Tabs */
+        .tabs {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            background: var(--page);
+            border-radius: 0 0 14px 14px;
+        }
+
+        .tab {
+            padding: 12px 28px;
+            font: inherit;
+            font-weight: 600;
+            color: var(--leaf-dark);
+            background: none;
+            border: none;
+            border-radius: 0 0 14px 14px;
+            cursor: pointer;
+            opacity: 0.55;
+        }
+
+        .tab.active { opacity: 1; }
+
+        /* Logo */
+        .logo {
+            position: absolute;
+            top: 28px;
+            left: 36px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            line-height: 1.1;
+        }
+
+        .logo svg { width: 44px; height: 44px; fill: var(--leaf-dark); }
+
+        /* Form area */
+        .form-area {
+            position: relative;
+            z-index: 2;
+            width: 55%;
+            padding: 120px 36px 40px 76px;
+        }
+
+        .kicker { font-weight: 600; font-size: 0.9rem; letter-spacing: 1px; }
+
+        h1 {
+            display: inline-block;
+            margin: 6px 0 12px;
+            font-size: 2rem;
+            font-weight: 700;
+            border-bottom: 3px solid var(--leaf-dark);
+        }
+
+        .switch-text { margin-bottom: 18px; font-weight: 500; font-size: 0.95rem; }
+
+        .switch-text button {
+            font: inherit;
+            font-weight: 600;
+            color: var(--orange);
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .row { display: flex; gap: 12px; }
+        .row .field { flex: 1; }
+
+        .field {
+            position: relative;
+            margin-bottom: 10px;
+            padding: 8px 12px;
+            background: rgba(255, 255, 255, 0.55);
+            border-radius: 10px;
+        }
+
+        .field label {
+            display: block;
+            font-size: 0.7rem;
+            font-weight: 600;
+            opacity: 0.8;
+        }
+
+        .field input {
+            width: 100%;
+            padding: 2px 28px 2px 0;
+            font: inherit;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--leaf-dark);
+            background: none;
+            border: none;
+            outline: none;
+        }
+
+        .field:focus-within { outline: 3px solid var(--leaf-dark); }
+
+        .eye {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.95rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .error { min-height: 1.3em; margin: 4px 0 8px; font-size: 0.9rem; font-weight: 600; color: var(--danger); }
+
+        .btn {
+            padding: 10px 22px;
+            font: inherit;
+            font-weight: 700;
+            font-size: 0.85rem;
+            color: #fff;
+            background: var(--orange);
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .btn:hover { filter: brightness(1.08); }
+        .btn:focus-visible, .tab:focus-visible, .switch-text button:focus-visible, .eye:focus-visible {
+            outline: 3px solid var(--leaf-dark);
+            outline-offset: 2px;
+        }
+
+        .hidden { display: none; }
+
+        /* Hero image on the right (replace with your dog image) */
+        .hero {
+            position: absolute;
+            right: 20px;
+            bottom: 0;
+            width: 38%;
+            height: 92%;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+        }
+
+        .hero img { max-width: 100%; max-height: 100%; object-fit: contain; }
+
+        .hero .placeholder {
+            font-size: 9rem;
+            line-height: 1;
+            padding-bottom: 30px;
+        }
+
+        @media (max-width: 760px) {
+            .card { background-image: linear-gradient(135deg, #a9d159 0%, #7fb236 100%); }
+            .form-area { width: 100%; padding: 110px 24px 32px; }
+            .hero { display: none; }
+            .logo { left: 20px; }
+            .row { flex-direction: column; gap: 0; }
+        }
+    </style>
+</head>
+<body>
+    <main class="card">
+        <div class="logo">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 6h10a5 5 0 0 1 5 5v2a4 4 0 0 1-7 2.6L14 14h-4l-1 1.6A4 4 0 0 1 2 13v-2a5 5 0 0 1 5-5zm1 3H7v1H6v1h1v1h1v-1h1v-1H8V9zm8.5 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm2 2a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/></svg>
+            <span>Super Dog<br>Escape</span>
+        </div>
+
+        <nav class="tabs">
+            <button class="tab" id="tabSignin" type="button">Sign in</button>
+            <button class="tab active" id="tabSignup" type="button">Create account</button>
+        </nav>
+
+        <section class="form-area">
+            <!-- CREATE ACCOUNT -->
+            <form id="signupForm" novalidate>
+                <p class="kicker">Start for free</p>
+                <h1>Create new account</h1>
+                <p class="switch-text">Already a member? <button type="button" data-go="signin">Log in</button></p>
+
+                <div class="row">
+                    <div class="field"><label for="firstName">First name</label><input id="firstName" autocomplete="given-name"></div>
+                    <div class="field"><label for="lastName">Last name</label><input id="lastName" autocomplete="family-name"></div>
+                </div>
+                <div class="field"><label for="username">Username</label><input id="username" autocomplete="username"></div>
+                <div class="field"><label for="email">Email</label><input id="email" type="email" autocomplete="email"></div>
+                <div class="field"><label for="phone">Phone number</label><input id="phone" type="tel" autocomplete="tel" placeholder="+94771234567"></div>
+                <div class="field">
+                    <label for="password">Password (min 6 characters)</label>
+                    <input id="password" type="password" autocomplete="new-password">
+                    <button type="button" class="eye" data-eye="password" aria-label="Show password">👁</button>
+                </div>
+
+                <p class="error" id="signupError" role="alert"></p>
+                <button class="btn" type="submit">CREATE ACCOUNT</button>
+            </form>
+
+            <!-- SIGN IN -->
+            <form id="signinForm" class="hidden" novalidate>
+                <p class="kicker">Welcome back</p>
+                <h1>Sign in</h1>
+                <p class="switch-text">Don't have an account? <button type="button" data-go="signup">Create account</button></p>
+
+                <div class="field"><label for="loginId">Email, phone or username</label><input id="loginId" autocomplete="username"></div>
+                <div class="field">
+                    <label for="loginPassword">Password</label>
+                    <input id="loginPassword" type="password" autocomplete="current-password">
+                    <button type="button" class="eye" data-eye="loginPassword" aria-label="Show password">👁</button>
+                </div>
+
+                <p class="error" id="signinError" role="alert"></p>
+                <button class="btn" type="submit">LOGIN</button>
+            </form>
+        </section>
+
+        <!-- Replace the src with your dog image, e.g. images/dog-hero.png -->
+        <div class="hero">
+            <img id="heroImg" src="images/dog-hero.png" alt="Super dog">
+            <span class="placeholder hidden" id="heroFallback" aria-hidden="true">🐕</span>
+        </div>
+    </main>
+
+    <script type="module" src="login.js"></script>
+</body>
+</html>

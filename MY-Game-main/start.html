@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Start game</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="auth.css">
+</head>
+<body>
+    <main class="panel">
+        <h1>Ready to run?</h1>
+        <p class="sub" id="welcome"></p>
+
+        <div class="stats">
+            <div>
+                Lives
+                <strong class="hearts" id="lives"></strong>
+            </div>
+            <div>
+                Best score
+                <strong id="best">0</strong>
+            </div>
+        </div>
+
+        <p class="error" id="msg"></p>
+        <button id="playBtn">Start game</button>
+        <button class="ghost" id="logoutBtn">Log out</button>
+    </main>
+
+    <script type="module" src="start.js"></script>
+</body>
+</html>
